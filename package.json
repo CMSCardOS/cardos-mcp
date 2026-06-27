@@ -1,0 +1,39 @@
+{
+  "name": "cardos-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for CardOS — issue and manage virtual cards via the Model Context Protocol. Works with Claude, Cursor, and any MCP client.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cardos-mcp": "dist/index.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "virtual-cards",
+    "card-issuing",
+    "cards-api",
+    "fintech",
+    "telegram",
+    "claude",
+    "cursor",
+    "ai-tools",
+    "cardos"
+  ],
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

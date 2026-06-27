@@ -25,16 +25,20 @@ It is a thin client over the public REST API: no provider internals, no secrets 
 ## Quick start
 
 1. **Get an API key** at **[cardos.dev/partner/developers](https://cardos.dev/partner/developers)** (a `cms_sk_test_…` key = sandbox).
-2. **Run it** (no install needed):
+2. **Run it.**
+
+Once published to npm (no install needed):
 
 ```bash
 CARDOS_API_KEY=cms_sk_test_xxx npx cardos-mcp
 ```
 
-Or install:
+Or straight from source:
 
 ```bash
-npm install -g cardos-mcp
+git clone https://github.com/DeFiTON/cardos-mcp && cd cardos-mcp
+npm install && npm run build
+CARDOS_API_KEY=cms_sk_test_xxx node dist/index.js
 ```
 
 ## Configure your client

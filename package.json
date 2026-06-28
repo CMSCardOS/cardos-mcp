@@ -1,17 +1,21 @@
 {
   "name": "cardos-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for CardOS — issue and manage virtual cards via the Model Context Protocol. Works with Claude, Cursor, and any MCP client.",
+  "version": "0.2.0",
+  "description": "MCP server for CardOS — issue and manage virtual cards via the Model Context Protocol. Works with Claude, Cursor, Windsurf and any MCP client.",
   "license": "MIT",
   "type": "module",
   "bin": {
     "cardos-mcp": "dist/index.js"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "README.md", "LICENSE", "server.json"],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -21,9 +25,11 @@
     "card-issuing",
     "cards-api",
     "fintech",
+    "payments",
     "telegram",
     "claude",
     "cursor",
+    "windsurf",
     "ai-tools",
     "cardos"
   ],
@@ -34,6 +40,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "^5.5.0"
-  }
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "repository": { "type": "git", "url": "git+https://github.com/DeFiTON/cardos-mcp.git" },
+  "homepage": "https://cardos.dev",
+  "bugs": { "url": "https://github.com/DeFiTON/cardos-mcp/issues" }
 }

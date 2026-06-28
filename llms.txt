@@ -1,0 +1,29 @@
+# cardos-mcp
+
+> MCP server for CardOS — issue and manage virtual cards from any MCP client (Claude, Cursor, Windsurf, VS Code). A thin, safe client over the public CardOS REST API (https://cardos.dev/api/v1). Sandbox-first: a cms_sk_test_… key moves no real money.
+
+## Setup
+- Get an API key: https://cardos.dev/partner/developers
+- Run: `CARDOS_API_KEY=cms_sk_test_xxx npx cardos-mcp`
+- Config (Claude/Cursor/Windsurf/VS Code): command `npx`, args `["-y","cardos-mcp"]`, env `CARDOS_API_KEY`.
+
+## Tools (26)
+Catalog & balance: list_products, get_merchant_rates, get_balance.
+Cards: issue_card, get_card, freeze_card, unfreeze_card, close_card, set_card_pin, set_card_controls, reveal_card, create_card_session, list_card_transactions.
+Deposits: create_deposit, confirm_deposit_sandbox, simulate_transaction_sandbox.
+Statements & analytics: get_statement, get_spending_analytics.
+Disputes: file_dispute, list_disputes, get_dispute, update_dispute.
+KYC: start_kyc, get_kyc_status.
+Webhooks: register_webhook, list_webhooks.
+
+## Resources
+cardos://docs — auth, idempotency, webhooks orientation.
+cardos://openapi — the full OpenAPI 3 spec.
+
+## Prompts
+issue_card_for_user, integrate_cardos.
+
+## Docs
+- https://cardos.dev/docs
+- https://cardos.dev/reference
+- https://github.com/DeFiTON/cardos-mcp

@@ -1,0 +1,26 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: ["cardosApiKey"]
+    properties:
+      cardosApiKey:
+        type: string
+        title: CardOS API Key
+        description: "Get one at https://cardos.dev/partner/developers (cms_sk_test_… runs in sandbox)."
+      cardosBaseUrl:
+        type: string
+        title: API Base URL
+        default: "https://cardos.dev/api/v1"
+  commandFunction: |
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        CARDOS_API_KEY: config.cardosApiKey,
+        CARDOS_BASE_URL: config.cardosBaseUrl || 'https://cardos.dev/api/v1'
+      }
+    })
+  exampleConfig:
+    cardosApiKey: cms_sk_test_xxxxxxxxxxxx
+    cardosBaseUrl: https://cardos.dev/api/v1

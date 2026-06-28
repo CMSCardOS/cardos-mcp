@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.cardos/cardos-mcp",
+  "description": "Issue and manage virtual cards via the CardOS API — sandbox-first, money-safe.",
+  "version": "0.2.0",
+  "repository": {
+    "url": "https://github.com/DeFiTON/cardos-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "cardos-mcp",
+      "version": "0.2.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "CARDOS_API_KEY",
+          "description": "CardOS API key. A cms_sk_test_… key runs in sandbox (no real money). Get one at https://cardos.dev/partner/developers",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "CARDOS_BASE_URL",
+          "description": "Override the API base URL (default https://cardos.dev/api/v1).",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}

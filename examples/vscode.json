@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "cardos": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "cardos-mcp"],
+      "env": { "CARDOS_API_KEY": "cms_sk_test_xxxxxxxxxxxx" }
+    }
+  }
+}

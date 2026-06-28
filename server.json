@@ -4,7 +4,7 @@
   "description": "Issue and manage virtual cards via the CardOS API — sandbox-first, money-safe.",
   "version": "0.2.0",
   "repository": {
-    "url": "https://github.com/DeFiTON/cardos-mcp",
+    "url": "https://github.com/CMSCardOS/cardos-mcp",
     "source": "github"
   },
   "packages": [

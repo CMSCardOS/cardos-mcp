@@ -4,7 +4,7 @@
 
 **Issue and manage virtual cards from any AI assistant — over the [Model Context Protocol](https://modelcontextprotocol.io).**
 
-[![CI](https://github.com/DeFiTON/cardos-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/DeFiTON/cardos-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/CMSCardOS/cardos-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/CMSCardOS/cardos-mcp/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/cardos-mcp.svg)](https://www.npmjs.com/package/cardos-mcp)
 [![MCP](https://img.shields.io/badge/MCP-server-blue)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
@@ -30,7 +30,7 @@ CARDOS_API_KEY=cms_sk_test_xxx npx -y cardos-mcp
 …or straight from source:
 
 ```bash
-git clone https://github.com/DeFiTON/cardos-mcp && cd cardos-mcp
+git clone https://github.com/CMSCardOS/cardos-mcp && cd cardos-mcp
 npm install && npm run build
 CARDOS_API_KEY=cms_sk_test_xxx node dist/index.js
 ```

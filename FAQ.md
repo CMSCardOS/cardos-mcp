@@ -37,4 +37,4 @@ Yes — set `CARDOS_BASE_URL`.
 Add the env var to your client config (see README) or export it before running. The server still starts so `tools/list` works, but API calls will return 401 until a valid key is set.
 
 ### Where do I report bugs or request tools?
-Open an issue: https://github.com/DeFiTON/cardos-mcp/issues
+Open an issue: https://github.com/CMSCardOS/cardos-mcp/issues

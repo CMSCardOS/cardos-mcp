@@ -43,7 +43,7 @@
     "typescript": "^5.5.0",
     "vitest": "^2.0.0"
   },
-  "repository": { "type": "git", "url": "git+https://github.com/DeFiTON/cardos-mcp.git" },
+  "repository": { "type": "git", "url": "git+https://github.com/CMSCardOS/cardos-mcp.git" },
   "homepage": "https://cardos.dev",
-  "bugs": { "url": "https://github.com/DeFiTON/cardos-mcp/issues" }
+  "bugs": { "url": "https://github.com/CMSCardOS/cardos-mcp/issues" }
 }

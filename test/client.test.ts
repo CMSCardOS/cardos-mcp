@@ -67,4 +67,20 @@ describe('CardOSClient', () => {
     expect(e).toBeInstanceOf(Error);
     expect(e.status).toBe(500);
   });
+
+  it('uses a caller-supplied idempotencyKey when given', async () => {
+    const f = mockFetch([{ status: 201, body: { card_id: 'c1' } }]);
+    vi.stubGlobal('fetch', f);
+    const c = new CardOSClient({ apiKey: 'cms_sk_test_x' });
+    await c.post('/cards', { external_user_ref: 'u1' }, true, 'fixed-key');
+    expect((f.mock.calls[0]![1] as RequestInit).headers).toMatchObject({ 'Idempotency-Key': 'fixed-key' });
+  });
+
+  it('does NOT retry a keyless POST on a transient 5xx', async () => {
+    const f = mockFetch([{ ok: false, status: 503 }, { ok: false, status: 503 }]);
+    vi.stubGlobal('fetch', f);
+    const c = new CardOSClient({ apiKey: 'cms_sk_test_x', maxRetries: 2 });
+    await expect(c.post('/cards/x/freeze')).rejects.toMatchObject({ status: 503 });
+    expect(f).toHaveBeenCalledTimes(1); // keyless write → not replayed
+  });
 });

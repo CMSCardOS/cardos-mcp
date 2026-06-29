@@ -16,7 +16,7 @@ import { registerTools } from './tools.js';
 import { registerResources } from './resources.js';
 import { registerPrompts } from './prompts.js';
 
-const VERSION = '0.2.0';
+const VERSION = '0.2.1';
 
 async function main(): Promise<void> {
   const apiKey = process.env.CARDOS_API_KEY ?? '';

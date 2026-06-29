@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here. This project adheres to [Semantic Versioning](https://semver.org).
 
+## [0.2.1] — 2026-06-29
+### Fixed (post-publish review: codex + grok)
+- **Idempotency across caller retries** — `issue_card` / `create_deposit` accept an `idempotency_key`; reuse on retry to avoid double-issue/charge.
+- **Retry safety** — only GET and keyed requests are retried; keyless POST/PATCH are never replayed.
+- **Backoff** — exponential + jitter, honors `Retry-After`. **Query** via `URLSearchParams`.
+- **Webhook events** corrected to `credited|issued|transaction|card_status|balance`.
+- **Sensitive output** — `reveal_card` / `create_card_session` / `register_webhook` descriptions now warn that the result holds a one-time link or signing secret to deliver to the user, not log.
+
 ## [0.2.0] — 2026-06-28
 ### Added
 - Full API coverage: **26 tools** across catalog, cards, deposits, statements, analytics, disputes, KYC and webhooks.

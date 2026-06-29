@@ -29,9 +29,13 @@ export function registerTools(server: McpServer, client: CardOSClient): void {
   // ─────────── Cards ───────────
   server.tool(
     'issue_card',
-    '💳 Issue a virtual card to an end user. Money operation — a test key runs in sandbox (no real money). Idempotent: retries do not double-issue.',
-    { external_user_ref: userRef, product: z.string().optional().describe('productCode from list_products (optional; project default if omitted).') },
-    ({ external_user_ref, product }) => wrap(() => client.post('/cards', { external_user_ref, ...(product ? { product } : {}) }, true)),
+    '💳 Issue a virtual card to an end user. Money operation — a test key runs in sandbox (no real money). Idempotent: pass the same idempotency_key when retrying so a card is never issued twice.',
+    {
+      external_user_ref: userRef,
+      product: z.string().optional().describe('productCode from list_products (optional; project default if omitted).'),
+      idempotency_key: z.string().optional().describe('Stable key to make caller-side retries safe — reuse the SAME value if you retry this call after a timeout.'),
+    },
+    ({ external_user_ref, product, idempotency_key }) => wrap(() => client.post('/cards', { external_user_ref, ...(product ? { product } : {}) }, true, idempotency_key)),
   );
   server.tool('get_card', 'Masked card details (last4, expiry, status). Raw PAN/CVV are never returned here — use reveal_card.', { card_id: cardId }, ({ card_id }) =>
     wrap(() => client.get(`/cards/${encodeURIComponent(card_id)}`)),
@@ -63,13 +67,13 @@ export function registerTools(server: McpServer, client: CardOSClient): void {
   );
   server.tool(
     'reveal_card',
-    'Mint a one-time hosted link that shows full card details (PAN/CVV) to the end user, bypassing you (PCI on CardOS). Short-lived, single-use.',
+    'Mint a one-time hosted link that shows full card details (PAN/CVV) to the end user, bypassing you (PCI on CardOS). Short-lived, single-use. ⚠️ The result contains a sensitive one-time link — deliver it to the end user; do not store or log it.',
     { card_id: cardId },
     ({ card_id }) => wrap(() => client.post(`/cards/${encodeURIComponent(card_id)}/reveal`)),
   );
   server.tool(
     'create_card_session',
-    'Mint hosted card screens (manage + transactions) on real data, to open in a webview for the end user — bypassing you. Returns manage_url / transactions_url.',
+    'Mint hosted card screens (manage + transactions) on real data, to open in a webview for the end user — bypassing you. Returns manage_url / transactions_url. ⚠️ These are sensitive short-lived links — deliver to the end user; do not store or log them.',
     { card_id: cardId },
     ({ card_id }) => wrap(() => client.post(`/cards/${encodeURIComponent(card_id)}/session`)),
   );
@@ -83,9 +87,14 @@ export function registerTools(server: McpServer, client: CardOSClient): void {
   // ─────────── Deposits ───────────
   server.tool(
     'create_deposit',
-    'Create a crypto deposit invoice to top up an end-user balance. Money operation — sandbox with a test key. Idempotent.',
-    { external_user_ref: userRef, amount: z.string().min(1).describe('Amount as a decimal string, e.g. "100".'), method: z.enum(['usdt_trc20', 'usdt_ton']).default('usdt_trc20') },
-    ({ external_user_ref, amount, method }) => wrap(() => client.post('/deposits', { external_user_ref, amount, method }, true)),
+    'Create a crypto deposit invoice to top up an end-user balance. Money operation — sandbox with a test key. Idempotent: pass the same idempotency_key when retrying.',
+    {
+      external_user_ref: userRef,
+      amount: z.string().min(1).describe('Amount as a decimal string, e.g. "100".'),
+      method: z.enum(['usdt_trc20', 'usdt_ton']).default('usdt_trc20'),
+      idempotency_key: z.string().optional().describe('Stable key to make caller-side retries safe — reuse the SAME value if you retry after a timeout.'),
+    },
+    ({ external_user_ref, amount, method, idempotency_key }) => wrap(() => client.post('/deposits', { external_user_ref, amount, method }, true, idempotency_key)),
   );
   server.tool('confirm_deposit_sandbox', '[SANDBOX] Simulate confirmation of a pending deposit (test key only). In live, an on-chain watcher credits it.', { deposit_id: z.string().min(1) }, ({ deposit_id }) =>
     wrap(() => client.post(`/sandbox/deposits/${encodeURIComponent(deposit_id)}/confirm`)),
@@ -151,8 +160,8 @@ export function registerTools(server: McpServer, client: CardOSClient): void {
   // ─────────── Webhooks ───────────
   server.tool(
     'register_webhook',
-    'Register an HTTPS endpoint for outbound events (transaction, balance, issued, card_status, kyc). Returns the signing secret once.',
-    { url: z.string().url(), events: z.array(z.enum(['transaction', 'balance', 'issued', 'card_status', 'kyc'])).optional().describe('Event types (omit for all).') },
+    'Register an HTTPS endpoint for outbound events (credited, issued, transaction, card_status, balance). Returns the signing secret once. ⚠️ The result contains the signing secret — store it securely; do not log it.',
+    { url: z.string().url(), events: z.array(z.enum(['credited', 'issued', 'transaction', 'card_status', 'balance'])).optional().describe('Event types (omit for all).') },
     ({ url, events }) => wrap(() => client.post('/webhook-endpoints', { url, ...(events ? { events } : {}) })),
   );
   server.tool('list_webhooks', 'List registered webhook endpoints (no secrets).', {}, () => wrap(() => client.get('/webhook-endpoints')));

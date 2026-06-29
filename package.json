@@ -1,6 +1,6 @@
 {
   "name": "cardos-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for CardOS — issue and manage virtual cards via the Model Context Protocol. Works with Claude, Cursor, Windsurf and any MCP client.",
   "license": "MIT",
   "type": "module",

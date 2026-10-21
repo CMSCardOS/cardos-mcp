@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 Please report security issues privately rather than opening a public issue.
-Email **security@cardos.dev** with details and reproduction steps. We aim to acknowledge within 72 hours.
+Use **Security → Report a vulnerability** in this repository (GitHub private reporting) with details and reproduction steps. We aim to acknowledge within 72 hours.
 
 ## Scope & design notes
 

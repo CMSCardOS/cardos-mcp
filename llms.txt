@@ -26,4 +26,4 @@ issue_card_for_user, integrate_cardos.
 ## Docs
 - https://cardos.dev/docs
 - https://cardos.dev/reference
-- https://github.com/DeFiTON/cardos-mcp
+- https://github.com/CMSCardOS/cardos-mcp
